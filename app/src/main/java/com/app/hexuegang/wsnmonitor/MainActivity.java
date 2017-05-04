@@ -8,11 +8,10 @@ import android.view.View;
 
 import com.app.hexuegang.wsnmonitor.databinding.ActivityMainBinding;
 import com.app.hexuegang.wsnmonitor.view.adapter.BaseFragmentPagerAdapter;
-import com.app.hexuegang.wsnmonitor.view.fragment.WaterIndexFragment;
 import com.app.hexuegang.wsnmonitor.view.fragment.AirIndexFragment;
-import com.app.hexuegang.wsnmonitor.view.fragment.SoilIndexFragment;
-import com.app.hexuegang.wsnmonitor.view.fragment.NoiseIndexFragment;
 import com.app.hexuegang.wsnmonitor.view.fragment.ComprehensiveFragment;
+import com.app.hexuegang.wsnmonitor.view.fragment.NoiseIndexFragment;
+import com.app.hexuegang.wsnmonitor.view.fragment.SoilIndexFragment;
 import com.app.hexuegang.wsnmonitor.view.fragment.WaterIndexFragment2;
 
 import java.util.ArrayList;
