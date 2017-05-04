@@ -59,4 +59,5 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
 
     @Override
     public void onClick(View view) {}
+
 }
