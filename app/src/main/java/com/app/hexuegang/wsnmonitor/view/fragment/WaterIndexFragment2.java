@@ -34,7 +34,6 @@ public class WaterIndexFragment2 extends BaseIndexFragment<parameter_water> {
     @Override
     protected void initAdapter() {
         adapter = new RecyclerViewWaterAdapter2(this.getActivity(), datas);
-        System.out.println("ghjgjhhjvhjvvbjhGGGGGG");
     }
 
     @Override
