@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 
 import com.app.hexuegang.wsnmonitor.bean.parameter_water;
 import com.app.hexuegang.wsnmonitor.publish.MyConstants;
+import com.app.hexuegang.wsnmonitor.publish.MyMethods;
 import com.app.hexuegang.wsnmonitor.util.DateUtil;
 import com.app.hexuegang.wsnmonitor.util.SystemUtils;
 import com.app.hexuegang.wsnmonitor.view.adapter.RecyclerViewWaterAdapter2;
@@ -61,6 +62,8 @@ public class WaterIndexFragment2 extends BaseIndexFragment<parameter_water> {
 
                         parameter_water lastParameterWater = datas.get(datas.size() - 1);
                         lastParameterStr = lastParameterWater.getUpdatedAt();
+
+                        MyMethods.waterComputingMethod(list);
 
                     } else {
                         noDataTvSetText("暂无数据!");

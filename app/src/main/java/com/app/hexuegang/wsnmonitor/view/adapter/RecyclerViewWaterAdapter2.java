@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.app.hexuegang.wsnmonitor.R;
 import com.app.hexuegang.wsnmonitor.bean.parameter_water;
 import com.app.hexuegang.wsnmonitor.publish.ITEM_TYPE;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -51,9 +52,13 @@ public class RecyclerViewWaterAdapter2 extends BaseRecyclerViewAdapter<parameter
         }
 
         @Override
-        public void bindView(int position, parameter_water pWater) {
+        public void bindView(final int position, final parameter_water pWater) {
             super.bindView(position, pWater);
-            image.setImageResource(R.mipmap.icon_water);
+            if (pWater.getImage_url()  != null){
+                Glide.with(context).load(pWater.getImage_url()).dontAnimate().placeholder(R.mipmap.icon_water).into(image);
+            }else {
+                image.setImageResource(R.mipmap.icon_water);
+            }
             img_txt.setText(pWater.getName());
             txt_time.setText(pWater.getUpdatedAt());
         }

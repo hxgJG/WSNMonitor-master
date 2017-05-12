@@ -11,8 +11,10 @@ import cn.bmob.v3.BmobObject;
 public class parameter_water extends BmobObject implements Serializable{
     private String element_name;
     private String name;
+    private String image_url;
     private float element_value;
     private float element_standard_1;
+    private int groupId;
 //    private int type = (int) (Math.random()*100);
 
 
@@ -58,4 +60,20 @@ public class parameter_water extends BmobObject implements Serializable{
 //    public void setType(int type) {
 //        this.type = type;
 //    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
 }
