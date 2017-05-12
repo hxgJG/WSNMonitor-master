@@ -3,9 +3,7 @@ package com.app.hexuegang.wsnmonitor.publish;
 import com.app.hexuegang.wsnmonitor.bean.parameter_water;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by HEXG on 2017/5/12.
@@ -44,11 +42,11 @@ public class MyMethods {
                 } else if (pWater.getGroupId() == 3) {
                     waterValues3.add(v);
                 }
+
+                WaterElements.oneWaterElememtMethod(pWater, v);
             }
 
-//            float maxValue1 = Collections.max(waterValues1).floatValue();
-//            float maxValue2 = Collections.max(waterValues2).floatValue();
-//            float maxValue3 = Collections.max(waterValues3).floatValue();
+
 
 
         } catch (Exception e) {
@@ -57,12 +55,5 @@ public class MyMethods {
         }
     }
 
-    /**
-     * 获取集合中的最大值
-     * @param list
-     * @return
-     */
-    private float getMax(ArrayList<Float> list){
-        return Collections.max(list).floatValue();
-    }
+
 }
