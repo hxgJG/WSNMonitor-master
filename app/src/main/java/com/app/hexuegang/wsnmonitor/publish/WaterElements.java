@@ -53,6 +53,9 @@ public class WaterElements {
     public static final String w_turbidity = "water_turbidity";
     public static final String w_Zn = "water_Zn";
 
+
+//    private static ArrayList<ArrayList<Float>> arrayLists = new ArrayList<>();
+
     public static ArrayList<Float> list_666 = new ArrayList<>();
     public static ArrayList<Float> list_alpha_radioactivity = new ArrayList<>();
     public static ArrayList<Float> list_anion_synthetic_detergent = new ArrayList<>();
@@ -93,14 +96,56 @@ public class WaterElements {
     public static ArrayList<Float> list_turbidity = new ArrayList<>();
     public static ArrayList<Float> list_Zn = new ArrayList<>();
 
+//    {
+//        arrayLists.add(list_666);
+//        arrayLists.add(list_alpha_radioactivity);
+//        arrayLists.add(list_anion_synthetic_detergent);
+//        arrayLists.add(list_As);
+//        arrayLists.add(list_Ba);
+//        arrayLists.add(list_Be);
+//        arrayLists.add(list_beta_radioactivity);
+//        arrayLists.add(list_Cd);
+//        arrayLists.add(list_Cl);
+//        arrayLists.add(list_Co);
+//        arrayLists.add(list_colour);
+//        arrayLists.add(list_Cr);
+//        arrayLists.add(list_Cu);
+//        arrayLists.add(list_cyanide);
+//        arrayLists.add(list_DDT);
+//        arrayLists.add(list_dissolved_solid);
+//        arrayLists.add(list_Fe);
+//        arrayLists.add(list_fluoride);
+//        arrayLists.add(list_hardness);
+//        arrayLists.add(list_iodide);
+//        arrayLists.add(list_Mn);
+//        arrayLists.add(list_Mo);
+//        arrayLists.add(list_naked_eye);
+//        arrayLists.add(list_NH3);
+//        arrayLists.add(list_Ni);
+//        arrayLists.add(list_NaNO2);
+//        arrayLists.add(list_NO3);
+//        arrayLists.add(list_odor);
+//        arrayLists.add(list_Pb);
+//        arrayLists.add(list_permanganate_index);
+//        arrayLists.add(list_pH);
+//        arrayLists.add(list_phenol);
+//        arrayLists.add(list_Se);
+//        arrayLists.add(list_SO3);
+//        arrayLists.add(list_total_bacteria);
+//        arrayLists.add(list_total_coliform);
+//        arrayLists.add(list_turbidity);
+//        arrayLists.add(list_Zn);
+//    }
+
 
     /**
      * 某个水环境指数参数的预处理方法
-     * @param pWater
+     *
+     * @param elementName
      * @param v
      */
-    public static void oneWaterElememtMethod(parameter_water pWater, float v) {
-        switch (pWater.getElement_name()) {
+    public static void oneWaterElememtMethod( String elementName, float v) {
+        switch (elementName) {
             case w_666:
                 list_666.add(v);
                 break;
@@ -223,24 +268,29 @@ public class WaterElements {
 
     /**
      * 获取集合中的最大值
+     *
      * @param list
      * @return
      */
-    public static float getMax(ArrayList<Float> list){
+    public static float getMax(ArrayList<Float> list) {
         if (list.isEmpty()) return -1;
         return Collections.max(list).floatValue();
     }
 
-    public static float getAverage(ArrayList<Float> list){
+    public static float getAverage(ArrayList<Float> list, String type) {
         int size = list.size();
         float sum = 0.0f;
         float averageValue = 0.0f;
-        for (int i = 0; i< size; i++){
+        for (int i = 0; i < size; i++) {
             sum += list.get(i);
         }
 
+        if (MyConstants.ELEMENTS_NUMBER_TYPE_WATER.equals(type)){
+            size = MyConstants.ELEMENTS_NUMBER_WATER;
+        }
+
         try {
-            averageValue = sum/size;
+            averageValue = sum / size;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -249,130 +299,159 @@ public class WaterElements {
         return averageValue;
     }
 
+    private static float e_max = 0;
+    private static float e_average = 0;
+    private static float evaluation_quality = 0;
+
     /**
      * 某个水环境指数参数的评价计算方法
-     * @param pWater
-     * @param v
+     *
+     * @param elementName
      */
-    public static void oneWaterElememtComputingMethod(parameter_water pWater, float v) {
-        switch (pWater.getElement_name()) {
+    public static float oneWaterElememtComputingMethod(String elementName) {
+        evaluation_quality = 0;
+        switch (elementName) {
             case w_666:
-                list_666.add(v);
+                evaluation_quality = computingEvaluation(list_666);
                 break;
             case w_alpha_radioactivity:
-                list_alpha_radioactivity.add(v);
+                evaluation_quality = computingEvaluation(list_alpha_radioactivity);
                 break;
             case w_anion_synthetic_detergent:
-                list_anion_synthetic_detergent.add(v);
+                evaluation_quality = computingEvaluation(list_anion_synthetic_detergent);
                 break;
             case w_As:
-                list_As.add(v);
+                evaluation_quality = computingEvaluation(list_As);
                 break;
             case w_Ba:
-                list_Ba.add(v);
+                evaluation_quality = computingEvaluation(list_Ba);
                 break;
             case w_Be:
-                list_Be.add(v);
+                evaluation_quality = computingEvaluation(list_Be);
                 break;
             case w_beta_radioactivity:
-                list_beta_radioactivity.add(v);
+                evaluation_quality = computingEvaluation(list_beta_radioactivity);
                 break;
             case w_Cd:
-                list_Cd.add(v);
+                evaluation_quality = computingEvaluation(list_Cd);
                 break;
             case w_Cl:
-                list_Cl.add(v);
+                evaluation_quality = computingEvaluation(list_Cl);
                 break;
             case w_Co:
-                list_Co.add(v);
+                evaluation_quality = computingEvaluation(list_Co);
                 break;
             case w_colour:
-                list_colour.add(v);
+                evaluation_quality = computingEvaluation(list_colour);
                 break;
             case w_Cr:
-                list_Cr.add(v);
+                evaluation_quality = computingEvaluation(list_Cr);
                 break;
             case w_Cu:
-                list_Cu.add(v);
+                evaluation_quality = computingEvaluation(list_Cu);
                 break;
             case w_cyanide:
-                list_cyanide.add(v);
+                evaluation_quality = computingEvaluation(list_cyanide);
                 break;
             case w_DDT:
-                list_DDT.add(v);
+                evaluation_quality = computingEvaluation(list_DDT);
                 break;
             case w_dissolved_solid:
-                list_dissolved_solid.add(v);
+                evaluation_quality = computingEvaluation(list_dissolved_solid);
                 break;
             case w_Fe:
-                list_Fe.add(v);
+                evaluation_quality = computingEvaluation(list_Fe);
                 break;
             case w_fluoride:
-                list_fluoride.add(v);
+                evaluation_quality = computingEvaluation(list_fluoride);
                 break;
             case w_hardness:
-                list_hardness.add(v);
+                evaluation_quality = computingEvaluation(list_hardness);
                 break;
             case w_Hg:
-                list_Hg.add(v);
+                evaluation_quality = computingEvaluation(list_Hg);
                 break;
             case w_iodide:
-                list_iodide.add(v);
+                evaluation_quality = computingEvaluation(list_iodide);
                 break;
             case w_Mn:
-                list_Mn.add(v);
+                evaluation_quality = computingEvaluation(list_Mn);
                 break;
             case w_Mo:
-                list_Mo.add(v);
+                evaluation_quality = computingEvaluation(list_Mo);
                 break;
             case w_naked_eye:
-                list_naked_eye.add(v);
+                evaluation_quality = computingEvaluation(list_naked_eye);
                 break;
             case w_NH3:
-                list_NH3.add(v);
+                evaluation_quality = computingEvaluation(list_NH3);
                 break;
             case w_Ni:
-                list_Ni.add(v);
+                evaluation_quality = computingEvaluation(list_Ni);
                 break;
             case w_NaNO2:
-                list_NaNO2.add(v);
+                evaluation_quality = computingEvaluation(list_NaNO2);
                 break;
             case w_NO3:
-                list_NO3.add(v);
+                evaluation_quality = computingEvaluation(list_NO3);
                 break;
             case w_odor:
-                list_odor.add(v);
+                evaluation_quality = computingEvaluation(list_odor);
                 break;
             case w_Pb:
-                list_Pb.add(v);
+                evaluation_quality = computingEvaluation(list_Pb);
                 break;
             case w_permanganate_index:
-                list_permanganate_index.add(v);
+                evaluation_quality = computingEvaluation(list_permanganate_index);
                 break;
             case w_pH:
-                list_pH.add(v);
+                evaluation_quality = computingEvaluation(list_pH);
                 break;
             case w_phenol:
-                list_phenol.add(v);
+                evaluation_quality = computingEvaluation(list_phenol);
                 break;
             case w_Se:
-                list_Se.add(v);
+                evaluation_quality = computingEvaluation(list_Se);
                 break;
             case w_SO3:
-                list_SO3.add(v);
+                evaluation_quality = computingEvaluation(list_SO3);
                 break;
             case w_total_bacteria:
-                list_total_bacteria.add(v);
+                evaluation_quality = computingEvaluation(list_total_bacteria);
                 break;
             case w_total_coliform:
-                list_total_coliform.add(v);
+                evaluation_quality = computingEvaluation(list_total_coliform);
                 break;
             case w_turbidity:
-                list_turbidity.add(v);
+                evaluation_quality = computingEvaluation(list_turbidity);
                 break;
             case w_Zn:
-                list_Zn.add(v);
+                evaluation_quality = computingEvaluation(list_Zn);
                 break;
         }
+        return evaluation_quality;
     }
+
+    /**
+     *
+     * @param list
+     * @return
+     */
+    private static float computingEvaluation(ArrayList<Float> list) {
+        e_max = getMax(list);
+        e_average = getAverage(list, MyConstants.ELEMENTS_NUMBER_TYPE_OTHER);
+        list.clear();
+        return  (float) Math.sqrt((e_max * e_max + e_average * e_average) / 2);
+    }
+
+//    public static void clearList(){
+//        if (!arrayLists.isEmpty()){
+//            int size = arrayLists.size();
+//            for (int i = 0; i< size; i++){
+//                arrayLists.get(i).clear();
+//            }
+//
+//            arrayLists.clear();
+//        }
+//    }
 }

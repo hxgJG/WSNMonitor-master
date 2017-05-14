@@ -85,37 +85,38 @@ public class WaterIndexFragment2 extends BaseIndexFragment<parameter_water> {
 
     @Override
     public void loadMoreData() {
-        Date newdate = DateUtil.string2Date(lastParameterStr);
-        BmobQuery<parameter_water> bmobQuery = new BmobQuery<>();
-        bmobQuery.addWhereLessThanOrEqualTo("createdAt", new BmobDate(newdate));
-        bmobQuery.order("-createdAt");  // 按时间降序排列
-        bmobQuery.setLimit(MyConstants.QUERY_ITEM_LIMITS);  // 设定返回的查询条数
-        // 设定查询缓存策略-CACHE_ELSE_NETWORK: 先从网络读取数据, 如果没有, 再从缓存获取.
-        bmobQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);
-        bmobQuery.setMaxCacheAge(TimeUnit.DAYS.toMillis(7));    //此表示缓存一天
-        bmobQuery.findObjects(new FindListener<parameter_water>() {
-            @Override
-            public void done(List<parameter_water> list, BmobException e) {
-                if (e == null) {
-                    if (list.size() == 0) {
-                        SystemUtils.showHandlerToast(getActivity(), "没有更多内容了...");
-                    } else {
-                        adapter.addBottom(list);
-
-                        // get the last item post time
-                        if (!list.isEmpty()) {
-                            parameter_water lastPostInfo = list.get(list.size() - 1);
-                            lastParameterStr = lastPostInfo.getUpdatedAt();
-                        }
-                    }
-
-                    progressBarVisible(ProgressBar.GONE);
-                } else {
-                    progressBarVisible(ProgressBar.GONE);
-                }
-                loadMoreComplete();
-            }
-        });
+        loadMoreComplete();
+//        Date newdate = DateUtil.string2Date(lastParameterStr);
+//        BmobQuery<parameter_water> bmobQuery = new BmobQuery<>();
+//        bmobQuery.addWhereLessThanOrEqualTo("createdAt", new BmobDate(newdate));
+//        bmobQuery.order("-createdAt");  // 按时间降序排列
+//        bmobQuery.setLimit(MyConstants.QUERY_ITEM_LIMITS);  // 设定返回的查询条数
+//        // 设定查询缓存策略-CACHE_ELSE_NETWORK: 先从网络读取数据, 如果没有, 再从缓存获取.
+//        bmobQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);
+//        bmobQuery.setMaxCacheAge(TimeUnit.DAYS.toMillis(7));    //此表示缓存一天
+//        bmobQuery.findObjects(new FindListener<parameter_water>() {
+//            @Override
+//            public void done(List<parameter_water> list, BmobException e) {
+//                if (e == null) {
+//                    if (list.size() == 0) {
+//                        SystemUtils.showHandlerToast(getActivity(), "没有更多内容了...");
+//                    } else {
+//                        adapter.addBottom(list);
+//
+//                        // get the last item post time
+//                        if (!list.isEmpty()) {
+//                            parameter_water lastPostInfo = list.get(list.size() - 1);
+//                            lastParameterStr = lastPostInfo.getUpdatedAt();
+//                        }
+//                    }
+//
+//                    progressBarVisible(ProgressBar.GONE);
+//                } else {
+//                    progressBarVisible(ProgressBar.GONE);
+//                }
+//                loadMoreComplete();
+//            }
+//        });
     }
 
     @Override
