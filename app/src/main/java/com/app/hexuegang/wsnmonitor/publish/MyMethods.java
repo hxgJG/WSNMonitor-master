@@ -1,6 +1,10 @@
 package com.app.hexuegang.wsnmonitor.publish;
 
+import android.content.Context;
+
 import com.app.hexuegang.wsnmonitor.bean.parameter_water;
+import com.app.hexuegang.wsnmonitor.util.NumberUtils;
+import com.app.hexuegang.wsnmonitor.util.SPHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +15,11 @@ import java.util.List;
 
 public class MyMethods {
 
-    public static float q_water = 0.0f;//水的总评价质量
-    public static float a_water = 0.0f;//大气的总评价质量
-    public static float s_water = 0.0f;//土壤的总评价质量
-    public static float n_water = 0.0f;//噪声的总评价质量
-    public static float t_water = 0.0f;//总评价质量
+    public static double q_water = 0.0f;//水的总评价质量
+    public static double a_water = 0.0f;//大气的总评价质量
+    public static double s_water = 0.0f;//土壤的总评价质量
+    public static double n_water = 0.0f;//噪声的总评价质量
+    public static double t_water = 0.0f;//总评价质量
 
     /**
      * 计算水因子的评价质量
@@ -30,13 +34,13 @@ public class MyMethods {
 //            ArrayList<Float> waterValues1 = new ArrayList<>();//第一组
 //            ArrayList<Float> waterValues2 = new ArrayList<>();//第二组
 //            ArrayList<Float> waterValues3 = new ArrayList<>();//第三组
-            ArrayList<Float> elementValues = new ArrayList<>();//各元素评价值的集合
+            ArrayList<Double> elementValues = new ArrayList<>();//各元素评价值的集合
             ArrayList<String> elementNames = new ArrayList<>();
 
             for (int i = 0; i < length; i++) {
                 parameter_water pWater = list.get(i);
                 if (pWater == null) return;
-                float v = pWater.getElement_value() / pWater.getElement_standard_1();
+                double v = pWater.getElement_value() / pWater.getElement_standard_1();
 //                if (pWater.getGroupId() == 1) {
 //                    waterValues1.add(v);
 //                } else if (pWater.getGroupId() == 2) {
@@ -65,7 +69,8 @@ public class MyMethods {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            System.out.println(q_water);
+            String qWaterStr = NumberUtils.formatDouble(q_water);
+            SPHelper.putString(SPHelper.sp_quality_evaluate, MyConstants.SP_KEY_QUALITY_WATER, qWaterStr);
         }
     }
 }

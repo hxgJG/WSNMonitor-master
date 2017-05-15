@@ -1,7 +1,5 @@
 package com.app.hexuegang.wsnmonitor.publish;
 
-import com.app.hexuegang.wsnmonitor.bean.parameter_water;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -54,47 +52,47 @@ public class WaterElements {
     public static final String w_Zn = "water_Zn";
 
 
-//    private static ArrayList<ArrayList<Float>> arrayLists = new ArrayList<>();
+//    private static ArrayList<ArrayList<Double>> arrayLists = new ArrayList<>();
 
-    public static ArrayList<Float> list_666 = new ArrayList<>();
-    public static ArrayList<Float> list_alpha_radioactivity = new ArrayList<>();
-    public static ArrayList<Float> list_anion_synthetic_detergent = new ArrayList<>();
-    public static ArrayList<Float> list_As = new ArrayList<>();
-    public static ArrayList<Float> list_Ba = new ArrayList<>();
-    public static ArrayList<Float> list_Be = new ArrayList<>();
-    public static ArrayList<Float> list_beta_radioactivity = new ArrayList<>();
-    public static ArrayList<Float> list_Cd = new ArrayList<>();
-    public static ArrayList<Float> list_Cl = new ArrayList<>();
-    public static ArrayList<Float> list_Co = new ArrayList<>();
-    public static ArrayList<Float> list_colour = new ArrayList<>();
-    public static ArrayList<Float> list_Cr = new ArrayList<>();
-    public static ArrayList<Float> list_Cu = new ArrayList<>();
-    public static ArrayList<Float> list_cyanide = new ArrayList<>();
-    public static ArrayList<Float> list_DDT = new ArrayList<>();
-    public static ArrayList<Float> list_dissolved_solid = new ArrayList<>();
-    public static ArrayList<Float> list_Fe = new ArrayList<>();
-    public static ArrayList<Float> list_fluoride = new ArrayList<>();
-    public static ArrayList<Float> list_hardness = new ArrayList<>();
-    public static ArrayList<Float> list_Hg = new ArrayList<>();
-    public static ArrayList<Float> list_iodide = new ArrayList<>();
-    public static ArrayList<Float> list_Mn = new ArrayList<>();
-    public static ArrayList<Float> list_Mo = new ArrayList<>();
-    public static ArrayList<Float> list_naked_eye = new ArrayList<>();
-    public static ArrayList<Float> list_NH3 = new ArrayList<>();
-    public static ArrayList<Float> list_Ni = new ArrayList<>();
-    public static ArrayList<Float> list_NaNO2 = new ArrayList<>();
-    public static ArrayList<Float> list_NO3 = new ArrayList<>();
-    public static ArrayList<Float> list_odor = new ArrayList<>();
-    public static ArrayList<Float> list_Pb = new ArrayList<>();
-    public static ArrayList<Float> list_permanganate_index = new ArrayList<>();
-    public static ArrayList<Float> list_pH = new ArrayList<>();
-    public static ArrayList<Float> list_phenol = new ArrayList<>();
-    public static ArrayList<Float> list_Se = new ArrayList<>();
-    public static ArrayList<Float> list_SO3 = new ArrayList<>();
-    public static ArrayList<Float> list_total_bacteria = new ArrayList<>();
-    public static ArrayList<Float> list_total_coliform = new ArrayList<>();
-    public static ArrayList<Float> list_turbidity = new ArrayList<>();
-    public static ArrayList<Float> list_Zn = new ArrayList<>();
+    public static ArrayList<Double> list_666 = new ArrayList<>();
+    public static ArrayList<Double> list_alpha_radioactivity = new ArrayList<>();
+    public static ArrayList<Double> list_anion_synthetic_detergent = new ArrayList<>();
+    public static ArrayList<Double> list_As = new ArrayList<>();
+    public static ArrayList<Double> list_Ba = new ArrayList<>();
+    public static ArrayList<Double> list_Be = new ArrayList<>();
+    public static ArrayList<Double> list_beta_radioactivity = new ArrayList<>();
+    public static ArrayList<Double> list_Cd = new ArrayList<>();
+    public static ArrayList<Double> list_Cl = new ArrayList<>();
+    public static ArrayList<Double> list_Co = new ArrayList<>();
+    public static ArrayList<Double> list_colour = new ArrayList<>();
+    public static ArrayList<Double> list_Cr = new ArrayList<>();
+    public static ArrayList<Double> list_Cu = new ArrayList<>();
+    public static ArrayList<Double> list_cyanide = new ArrayList<>();
+    public static ArrayList<Double> list_DDT = new ArrayList<>();
+    public static ArrayList<Double> list_dissolved_solid = new ArrayList<>();
+    public static ArrayList<Double> list_Fe = new ArrayList<>();
+    public static ArrayList<Double> list_fluoride = new ArrayList<>();
+    public static ArrayList<Double> list_hardness = new ArrayList<>();
+    public static ArrayList<Double> list_Hg = new ArrayList<>();
+    public static ArrayList<Double> list_iodide = new ArrayList<>();
+    public static ArrayList<Double> list_Mn = new ArrayList<>();
+    public static ArrayList<Double> list_Mo = new ArrayList<>();
+    public static ArrayList<Double> list_naked_eye = new ArrayList<>();
+    public static ArrayList<Double> list_NH3 = new ArrayList<>();
+    public static ArrayList<Double> list_Ni = new ArrayList<>();
+    public static ArrayList<Double> list_NaNO2 = new ArrayList<>();
+    public static ArrayList<Double> list_NO3 = new ArrayList<>();
+    public static ArrayList<Double> list_odor = new ArrayList<>();
+    public static ArrayList<Double> list_Pb = new ArrayList<>();
+    public static ArrayList<Double> list_permanganate_index = new ArrayList<>();
+    public static ArrayList<Double> list_pH = new ArrayList<>();
+    public static ArrayList<Double> list_phenol = new ArrayList<>();
+    public static ArrayList<Double> list_Se = new ArrayList<>();
+    public static ArrayList<Double> list_SO3 = new ArrayList<>();
+    public static ArrayList<Double> list_total_bacteria = new ArrayList<>();
+    public static ArrayList<Double> list_total_coliform = new ArrayList<>();
+    public static ArrayList<Double> list_turbidity = new ArrayList<>();
+    public static ArrayList<Double> list_Zn = new ArrayList<>();
 
 //    {
 //        arrayLists.add(list_666);
@@ -144,7 +142,7 @@ public class WaterElements {
      * @param elementName
      * @param v
      */
-    public static void oneWaterElememtMethod( String elementName, float v) {
+    public static void oneWaterElememtMethod( String elementName, double v) {
         switch (elementName) {
             case w_666:
                 list_666.add(v);
@@ -272,15 +270,15 @@ public class WaterElements {
      * @param list
      * @return
      */
-    public static float getMax(ArrayList<Float> list) {
+    public static double getMax(ArrayList<Double> list) {
         if (list.isEmpty()) return -1;
         return Collections.max(list).floatValue();
     }
 
-    public static float getAverage(ArrayList<Float> list, String type) {
+    public static double getAverage(ArrayList<Double> list, String type) {
         int size = list.size();
-        float sum = 0.0f;
-        float averageValue = 0.0f;
+        double sum = 0.0f;
+        double averageValue = 0.0f;
         for (int i = 0; i < size; i++) {
             sum += list.get(i);
         }
@@ -299,16 +297,16 @@ public class WaterElements {
         return averageValue;
     }
 
-    private static float e_max = 0;
-    private static float e_average = 0;
-    private static float evaluation_quality = 0;
+    private static double e_max = 0;
+    private static double e_average = 0;
+    private static double evaluation_quality = 0;
 
     /**
      * 某个水环境指数参数的评价计算方法
      *
      * @param elementName
      */
-    public static float oneWaterElememtComputingMethod(String elementName) {
+    public static double oneWaterElememtComputingMethod(String elementName) {
         evaluation_quality = 0;
         switch (elementName) {
             case w_666:
@@ -437,21 +435,11 @@ public class WaterElements {
      * @param list
      * @return
      */
-    private static float computingEvaluation(ArrayList<Float> list) {
+    private static double computingEvaluation(ArrayList<Double> list) {
         e_max = getMax(list);
         e_average = getAverage(list, MyConstants.ELEMENTS_NUMBER_TYPE_OTHER);
         list.clear();
         return  (float) Math.sqrt((e_max * e_max + e_average * e_average) / 2);
     }
 
-//    public static void clearList(){
-//        if (!arrayLists.isEmpty()){
-//            int size = arrayLists.size();
-//            for (int i = 0; i< size; i++){
-//                arrayLists.get(i).clear();
-//            }
-//
-//            arrayLists.clear();
-//        }
-//    }
 }

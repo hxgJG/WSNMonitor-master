@@ -1,6 +1,7 @@
 package com.app.hexuegang.wsnmonitor.app;
 
 import android.app.Application;
+import android.content.Context;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
@@ -11,17 +12,20 @@ import cn.bmob.v3.BmobConfig;
 
 public class MyApplication extends Application {
     private static MyApplication myApplication;
+    public static Context appContext;
     public static MyApplication getInstance(){
         return myApplication;
     }
-
     @Override
     public void onCreate() {
         super.onCreate();
         myApplication = this;
+        appContext = myApplication.getApplicationContext();
         initBmob();
 
     }
+
+
 
     private void initBmob() {
         BmobConfig config =new BmobConfig.Builder(myApplication)
