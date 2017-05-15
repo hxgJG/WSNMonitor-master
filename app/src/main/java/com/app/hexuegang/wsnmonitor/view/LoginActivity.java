@@ -1,9 +1,11 @@
 package com.app.hexuegang.wsnmonitor.view;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.app.hexuegang.wsnmonitor.BaseActivity;
@@ -11,10 +13,8 @@ import com.app.hexuegang.wsnmonitor.R;
 import com.app.hexuegang.wsnmonitor.databinding.ActivityLoginBinding;
 import com.app.hexuegang.wsnmonitor.mywidget.LoadingDialog;
 import com.app.hexuegang.wsnmonitor.presenter.LoginPresenter;
+import com.app.hexuegang.wsnmonitor.publish.MyConstants;
 import com.app.hexuegang.wsnmonitor.util.StringUtils;
-
-import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobConfig;
 
 /**
  * Created by hexuegang on 2017/1/19.
@@ -23,6 +23,7 @@ import cn.bmob.v3.BmobConfig;
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements ILoginView, View.OnClickListener {
     private LoadingDialog loadingDialog;
     private LoginPresenter mLoginPresenter = new LoginPresenter(LoginActivity.this, this);
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +34,26 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
 
     private void init() {
         setToolBar(false);
+
+        sp = this.getSharedPreferences(MyConstants.SP_NAME_USER_INFO, Context.MODE_PRIVATE);
+
+        //判断记住密码多选框的状态
+        if(sp.getBoolean(MyConstants.SP_KEY_REMEMBER_PASSWORD, false))
+        {
+            //设置默认是记录密码状态
+            bindingView.cbRememberPwd.setChecked(true);
+            bindingView.etUsername.setText(sp.getString(MyConstants.SP_KEY_USERNAME, ""));
+            bindingView.etPassword.setText(sp.getString(MyConstants.SP_KEY_PASSWORD, ""));
+            //判断自动登陆多选框状态
+            if(sp.getBoolean(MyConstants.SP_KEY_AUTOMATIC_LOGON, false))
+            {
+                //设置默认是自动登录状态
+                bindingView.cbAutomaticLogon.setChecked(true);
+                //跳转界面
+                gotoHomeActivity();
+            }
+        }
+
         if (loadingDialog == null)
         {
             loadingDialog = new LoadingDialog(LoginActivity.this).Builder();
@@ -41,6 +62,30 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
         bindingView.btnLogin.setOnClickListener(this);
         bindingView.btnRegister.setOnClickListener(this);
 //        initBmob(); 已在MyApplication中初始化Bmob
+        bindingView.cbRememberPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (bindingView.cbRememberPwd.isChecked()) {
+                    //记住密码已选中
+                    sp.edit().putBoolean(MyConstants.SP_KEY_REMEMBER_PASSWORD, true).commit();
+                }else {
+                    //记住密码未选中
+                    sp.edit().putBoolean(MyConstants.SP_KEY_REMEMBER_PASSWORD, false).commit();
+                }
+            }
+        });
+        bindingView.cbAutomaticLogon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (bindingView.cbRememberPwd.isChecked()) {
+                    //自动登录已选中
+                    sp.edit().putBoolean(MyConstants.SP_KEY_AUTOMATIC_LOGON, true).commit();
+                }else {
+                    //自动登录未选中
+                    sp.edit().putBoolean(MyConstants.SP_KEY_AUTOMATIC_LOGON, false).commit();
+                }
+            }
+        });
     }
 
 //    private void initBmob() {
@@ -102,12 +147,27 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                mLoginPresenter.login();
+                doLogin();
                 break;
             case R.id.btn_register:
                 mLoginPresenter.gotoRegisterActivity();
                 break;
         }
+    }
+
+    private void doLogin() {
+
+        //登录成功和记住密码框为选中状态才保存用户信息
+        if(bindingView.cbRememberPwd.isChecked())
+        {
+            //记住用户名、密码、
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString(MyConstants.SP_KEY_USERNAME, bindingView.etUsername.getText().toString());
+            editor.putString(MyConstants.SP_KEY_PASSWORD, bindingView.etPassword.getText().toString());
+            editor.commit();
+        }
+
+        mLoginPresenter.login();
     }
 
     @Override

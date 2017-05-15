@@ -23,5 +23,12 @@ public class MyConstants {
     public final static String ELEMENTS_NUMBER_TYPE_OTHER = "elements_number_type_other";
 
 
+    public final static String SP_NAME_USER_INFO = "sharedpreferences_name_user_info";
+    public final static String SP_KEY_USERNAME = "sharedpreferences_key_username";
+    public final static String SP_KEY_PASSWORD = "sharedpreferences_key_password";
+    public final static String SP_KEY_REMEMBER_PASSWORD = "sharedpreferences_key_remember_password";
+    public final static String SP_KEY_AUTOMATIC_LOGON = "sharedpreferences_key_automatic_logon";
+
+
 
 }

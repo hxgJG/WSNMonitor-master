@@ -68,6 +68,4 @@ public class MyMethods {
             System.out.println(q_water);
         }
     }
-
-
 }
