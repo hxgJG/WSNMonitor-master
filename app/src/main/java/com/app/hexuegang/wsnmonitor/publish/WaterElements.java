@@ -52,8 +52,6 @@ public class WaterElements {
     public static final String w_Zn = "water_Zn";
 
 
-//    private static ArrayList<ArrayList<Double>> arrayLists = new ArrayList<>();
-
     public static ArrayList<Double> list_666 = new ArrayList<>();
     public static ArrayList<Double> list_alpha_radioactivity = new ArrayList<>();
     public static ArrayList<Double> list_anion_synthetic_detergent = new ArrayList<>();
@@ -94,51 +92,8 @@ public class WaterElements {
     public static ArrayList<Double> list_turbidity = new ArrayList<>();
     public static ArrayList<Double> list_Zn = new ArrayList<>();
 
-//    {
-//        arrayLists.add(list_666);
-//        arrayLists.add(list_alpha_radioactivity);
-//        arrayLists.add(list_anion_synthetic_detergent);
-//        arrayLists.add(list_As);
-//        arrayLists.add(list_Ba);
-//        arrayLists.add(list_Be);
-//        arrayLists.add(list_beta_radioactivity);
-//        arrayLists.add(list_Cd);
-//        arrayLists.add(list_Cl);
-//        arrayLists.add(list_Co);
-//        arrayLists.add(list_colour);
-//        arrayLists.add(list_Cr);
-//        arrayLists.add(list_Cu);
-//        arrayLists.add(list_cyanide);
-//        arrayLists.add(list_DDT);
-//        arrayLists.add(list_dissolved_solid);
-//        arrayLists.add(list_Fe);
-//        arrayLists.add(list_fluoride);
-//        arrayLists.add(list_hardness);
-//        arrayLists.add(list_iodide);
-//        arrayLists.add(list_Mn);
-//        arrayLists.add(list_Mo);
-//        arrayLists.add(list_naked_eye);
-//        arrayLists.add(list_NH3);
-//        arrayLists.add(list_Ni);
-//        arrayLists.add(list_NaNO2);
-//        arrayLists.add(list_NO3);
-//        arrayLists.add(list_odor);
-//        arrayLists.add(list_Pb);
-//        arrayLists.add(list_permanganate_index);
-//        arrayLists.add(list_pH);
-//        arrayLists.add(list_phenol);
-//        arrayLists.add(list_Se);
-//        arrayLists.add(list_SO3);
-//        arrayLists.add(list_total_bacteria);
-//        arrayLists.add(list_total_coliform);
-//        arrayLists.add(list_turbidity);
-//        arrayLists.add(list_Zn);
-//    }
-
-
     /**
      * 某个水环境指数参数的预处理方法
-     *
      * @param elementName
      * @param v
      */
@@ -275,16 +230,12 @@ public class WaterElements {
         return Collections.max(list).floatValue();
     }
 
-    public static double getAverage(ArrayList<Double> list, String type) {
+    public static double getAverage(ArrayList<Double> list) {
         int size = list.size();
         double sum = 0.0f;
         double averageValue = 0.0f;
         for (int i = 0; i < size; i++) {
             sum += list.get(i);
-        }
-
-        if (MyConstants.ELEMENTS_NUMBER_TYPE_WATER.equals(type)){
-            size = MyConstants.ELEMENTS_NUMBER_WATER;
         }
 
         try {
@@ -437,7 +388,7 @@ public class WaterElements {
      */
     private static double computingEvaluation(ArrayList<Double> list) {
         e_max = getMax(list);
-        e_average = getAverage(list, MyConstants.ELEMENTS_NUMBER_TYPE_OTHER);
+        e_average = getAverage(list);
         list.clear();
         return  (float) Math.sqrt((e_max * e_max + e_average * e_average) / 2);
     }

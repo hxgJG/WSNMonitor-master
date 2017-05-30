@@ -8,8 +8,9 @@ import android.view.View;
 
 import com.app.hexuegang.wsnmonitor.BaseActivity;
 import com.app.hexuegang.wsnmonitor.R;
-import com.app.hexuegang.wsnmonitor.bean.parameter_noise;
+import com.app.hexuegang.wsnmonitor.bean.ParameterNoise;
 import com.app.hexuegang.wsnmonitor.databinding.ActivityNoiseElementDetailBinding;
+import com.bumptech.glide.Glide;
 
 /**
  * Created by HEXG on 2017/4/9.
@@ -17,7 +18,7 @@ import com.app.hexuegang.wsnmonitor.databinding.ActivityNoiseElementDetailBindin
 
 public class NoiseElementDetailActivity extends BaseActivity<ActivityNoiseElementDetailBinding> implements View.OnClickListener {
 
-    private parameter_noise parameterNoise;
+    private ParameterNoise parameterNoise;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class NoiseElementDetailActivity extends BaseActivity<ActivityNoiseElemen
         setContentView(R.layout.activity_noise_element_detail);
 
         Intent intent = getIntent();
-        parameterNoise = (parameter_noise) intent.getSerializableExtra("noise_element");
+        parameterNoise = (ParameterNoise) intent.getSerializableExtra("noise_element");
         if (parameterNoise == null) return;
         initUI();
     }
@@ -35,7 +36,11 @@ public class NoiseElementDetailActivity extends BaseActivity<ActivityNoiseElemen
         setToolBarTitle(parameterNoise.getNoise_name());
         setNavigationIcon(R.mipmap.toolbar_back);
         setNavigationIconClick(NoiseElementDetailActivity.this, true);
-        bindingView.elementDetailTvName.setText(parameterNoise.getNoise_name());
+        if (parameterNoise.getImage_url()  != null){
+            Glide.with(NoiseElementDetailActivity.this).load(parameterNoise.getImage_url()).dontAnimate().placeholder(R.mipmap.icon_water).into(bindingView.elementDetailImg);
+        }else {
+            bindingView.elementDetailImg.setImageResource(R.mipmap.icon_noise);
+        }
         bindingView.elementDetailTvStandard.setText(parameterNoise.getNoise_standard()+"dB(A)");
         bindingView.elementDetailTvValue.setText(parameterNoise.getNoise_value()+"dB(A)");
         bindingView.elementDetailTvTime.setText(parameterNoise.getUpdatedAt());

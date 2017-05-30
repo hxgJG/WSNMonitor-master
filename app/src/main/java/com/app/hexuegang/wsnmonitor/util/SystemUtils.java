@@ -11,7 +11,7 @@ import android.util.Log;
 import android.widget.AbsListView;
 import android.widget.Toast;
 
-import com.app.hexuegang.wsnmonitor.bean.parameter_water;
+import com.app.hexuegang.wsnmonitor.bean.ParameterWater;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -327,11 +327,11 @@ public class SystemUtils {
      * @param list List
      * @return
      */
-    public static ArrayList removeDuplicateData(ArrayList<parameter_water> list) {
+    public static ArrayList removeDuplicateData(ArrayList<ParameterWater> list) {
         Set set = new HashSet();
         ArrayList newList = new ArrayList();
 
-        for (parameter_water element : list) {
+        for (ParameterWater element : list) {
             if (set.add(element.getCreatedAt())) {
                 newList.add(element);
             }

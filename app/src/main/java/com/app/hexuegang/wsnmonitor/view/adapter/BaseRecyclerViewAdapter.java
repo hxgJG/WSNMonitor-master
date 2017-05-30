@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.app.hexuegang.wsnmonitor.bean.parameter_water;
 import com.app.hexuegang.wsnmonitor.publish.ITEM_TYPE;
 
 import java.util.ArrayList;
@@ -144,7 +143,7 @@ public abstract class BaseRecyclerViewAdapter<T extends BmobObject> extends Recy
         this.mListener = listener;
     }
 
-    public void addTop(List<parameter_water> list)
+    public void addTop(List<T> list)
     {
         if (datas != null) {
             datas.clear();

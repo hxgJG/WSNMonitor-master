@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.app.hexuegang.wsnmonitor.R;
 import com.app.hexuegang.wsnmonitor.publish.MyConstants;
+import com.app.hexuegang.wsnmonitor.util.NumberUtils;
 import com.app.hexuegang.wsnmonitor.util.SPHelper;
 
 /**
@@ -24,11 +25,11 @@ public class ComprehensiveFragment extends BaseFragment {
     private TextView tv_overall_result;
     private TextView tv_overall_describe;
 
-    private float qualityWater;
-    private float qualityAir;
-    private float qualitySoil;
-    private float qualityNoise;
-    private float qualityOverall;
+    private double qualityWater;
+    private double qualityAir;
+    private double qualitySoil;
+    private double qualityNoise;
+    private double qualityOverall;
 
     @Override
     public int getFragmentLayout() {
@@ -53,18 +54,21 @@ public class ComprehensiveFragment extends BaseFragment {
 
     private void getData() {
 
-        String qualityWaterStr = SPHelper.getString(SPHelper.sp_quality_evaluate, MyConstants.SP_KEY_QUALITY_WATER);
-        String qualityAirStr = SPHelper.getString(SPHelper.sp_quality_evaluate, MyConstants.SP_KEY_QUALITY_AIR);
-        String qualitySoilStr = SPHelper.getString(SPHelper.sp_quality_evaluate, MyConstants.SP_KEY_QUALITY_SOIL);
-        String qualityNoiseStr = SPHelper.getString(SPHelper.sp_quality_evaluate, MyConstants.SP_KEY_QUALITY_NOISE);
-        String qualityOverallStr = SPHelper.getString(SPHelper.sp_quality_evaluate, MyConstants.SP_KEY_QUALITY_OVERALL);
+        String qualityWaterStr = SPHelper.getString(SPHelper.sp_quality_evaluate_water, MyConstants.SP_KEY_QUALITY_WATER);
+        String qualityAirStr = SPHelper.getString(SPHelper.sp_quality_evaluate_air, MyConstants.SP_KEY_QUALITY_AIR);
+        String qualitySoilStr = SPHelper.getString(SPHelper.sp_quality_evaluate_soil, MyConstants.SP_KEY_QUALITY_SOIL);
+        String qualityNoiseStr = SPHelper.getString(SPHelper.sp_quality_evaluate_noise, MyConstants.SP_KEY_QUALITY_NOISE);
+        String qualityOverallStr = SPHelper.getString(SPHelper.sp_quality_evaluate_total, MyConstants.SP_KEY_QUALITY_OVERALL);
 
         try {
             qualityWater = Float.parseFloat(qualityWaterStr);
             qualityAir = Float.parseFloat(qualityAirStr);
             qualitySoil = Float.parseFloat(qualitySoilStr);
             qualityNoise = Float.parseFloat(qualityNoiseStr);
-            qualityOverall = Float.parseFloat(qualityOverallStr);
+            qualityOverall = qualityWater*MyConstants.WEIGHT_WATER
+                    + qualityAir*MyConstants.WEIGHT_AIR
+                    + qualitySoil*MyConstants.WEIGHT_SOIL
+                    + qualityNoise*MyConstants.WEIGHT_NOISE;
         } catch (NumberFormatException e) {
             e.printStackTrace();
         } finally {
@@ -79,16 +83,16 @@ public class ComprehensiveFragment extends BaseFragment {
     }
 
     private void refreshUI() {
-        tv_water_result.setText(qualityWater+"");
-        tv_air_result.setText(qualityAir+"");
-        tv_soil_result.setText(qualitySoil+"");
-        tv_noise_result.setText(qualityNoise+"");
-        tv_overall_result.setText(qualityOverall +"");
+        tv_water_result.setText(NumberUtils.formatDouble(qualityWater));
+        tv_air_result.setText(NumberUtils.formatDouble(qualityAir));
+        tv_soil_result.setText(NumberUtils.formatDouble(qualitySoil));
+        tv_noise_result.setText(NumberUtils.formatDouble(qualityNoise));
+        tv_overall_result.setText(NumberUtils.formatDouble(qualityOverall));
 
         setDescribe(qualityWater, qualityAir, qualitySoil, qualityNoise, qualityOverall);
     }
 
-    private void setDescribe(float valueWater, float valueAir, float valueSoil, float valueNoise, float valueOverall){
+    private void setDescribe(double valueWater, double valueAir, double valueSoil, double valueNoise, double valueOverall){
         tv_water_describe.setText(getDescribe(valueWater));
         tv_air_describe.setText(getDescribe(valueAir));
         tv_soil_describe.setText(getDescribe(valueSoil));
@@ -96,7 +100,7 @@ public class ComprehensiveFragment extends BaseFragment {
         tv_overall_describe.setText(getDescribe(valueOverall));
     }
 
-    private String getDescribe(float qualityValue){
+    private String getDescribe(double qualityValue){
         String describe = "";
         if (qualityValue <= 0){
             describe = "数据异常";
@@ -120,10 +124,10 @@ public class ComprehensiveFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        SPHelper.putString(SPHelper.sp_quality_evaluate, MyConstants.SP_KEY_QUALITY_WATER, qualityWater+"");
-        SPHelper.putString(SPHelper.sp_quality_evaluate, MyConstants.SP_KEY_QUALITY_AIR, qualityAir+"");
-        SPHelper.putString(SPHelper.sp_quality_evaluate, MyConstants.SP_KEY_QUALITY_SOIL, qualitySoil+"");
-        SPHelper.putString(SPHelper.sp_quality_evaluate, MyConstants.SP_KEY_QUALITY_NOISE, qualityNoise+"");
-        SPHelper.putString(SPHelper.sp_quality_evaluate, MyConstants.SP_KEY_QUALITY_OVERALL, qualityOverall+"");
+        SPHelper.putString(SPHelper.sp_quality_evaluate_water, MyConstants.SP_KEY_QUALITY_WATER, qualityWater+"");
+        SPHelper.putString(SPHelper.sp_quality_evaluate_air, MyConstants.SP_KEY_QUALITY_AIR, qualityAir+"");
+        SPHelper.putString(SPHelper.sp_quality_evaluate_soil, MyConstants.SP_KEY_QUALITY_SOIL, qualitySoil+"");
+        SPHelper.putString(SPHelper.sp_quality_evaluate_noise, MyConstants.SP_KEY_QUALITY_NOISE, qualityNoise+"");
+        SPHelper.putString(SPHelper.sp_quality_evaluate_total, MyConstants.SP_KEY_QUALITY_OVERALL, NumberUtils.formatDouble(qualityOverall));
     }
 }

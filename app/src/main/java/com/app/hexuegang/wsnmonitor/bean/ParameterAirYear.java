@@ -8,11 +8,13 @@ import cn.bmob.v3.BmobObject;
  * Created by HEXG on 2017/4/9.
  */
 
-public class parameter_air_year extends BmobObject implements Serializable{
+public class ParameterAirYear extends BmobObject implements Serializable{
     private String air_element_name;
     private String air_year_name;
     private float air_year_value;
     private float air_year_standard;
+    private String image_url;
+    private int groupId;
 
     public String getAir_element_name() {
         return air_element_name;
@@ -44,5 +46,21 @@ public class parameter_air_year extends BmobObject implements Serializable{
 
     public void setAir_year_standard(float air_year_standard) {
         this.air_year_standard = air_year_standard;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 }

@@ -8,11 +8,12 @@ import cn.bmob.v3.BmobObject;
  * Created by HEXG on 2017/4/9.
  */
 
-public class parameter_noise extends BmobObject implements Serializable{
+public class ParameterNoise extends BmobObject implements Serializable{
     private String noise_name;
     private int noise_time_type;
     private float noise_value;
     private float noise_standard;
+    private String image_url;
 
     public String getNoise_name() {
         return noise_name;
@@ -44,5 +45,13 @@ public class parameter_noise extends BmobObject implements Serializable{
 
     public void setNoise_standard(float noise_standard) {
         this.noise_standard = noise_standard;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 }

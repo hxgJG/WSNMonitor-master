@@ -8,8 +8,9 @@ import android.view.View;
 
 import com.app.hexuegang.wsnmonitor.BaseActivity;
 import com.app.hexuegang.wsnmonitor.R;
-import com.app.hexuegang.wsnmonitor.bean.parameter_air_year;
+import com.app.hexuegang.wsnmonitor.bean.ParameterAirYear;
 import com.app.hexuegang.wsnmonitor.databinding.ActivityAirElementDetailBinding;
+import com.bumptech.glide.Glide;
 
 /**
  * Created by HEXG on 2017/4/9.
@@ -17,7 +18,7 @@ import com.app.hexuegang.wsnmonitor.databinding.ActivityAirElementDetailBinding;
 
 public class AirElementDetailActivity extends BaseActivity<ActivityAirElementDetailBinding> implements View.OnClickListener {
 
-    private parameter_air_year airYear;
+    private ParameterAirYear airYear;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class AirElementDetailActivity extends BaseActivity<ActivityAirElementDet
         setContentView(R.layout.activity_air_element_detail);
 
         Intent intent = getIntent();
-        airYear = (parameter_air_year) intent.getSerializableExtra("air_element");
+        airYear = (ParameterAirYear) intent.getSerializableExtra("air_element");
         if (airYear == null) return;
         initUI();
     }
@@ -35,7 +36,11 @@ public class AirElementDetailActivity extends BaseActivity<ActivityAirElementDet
         setToolBarTitle(airYear.getAir_element_name());
         setNavigationIcon(R.mipmap.toolbar_back);
         setNavigationIconClick(AirElementDetailActivity.this, true);
-        bindingView.elementDetailTvName.setText(airYear.getAir_element_name());
+        if (airYear.getImage_url()  != null){
+            Glide.with(AirElementDetailActivity.this).load(airYear.getImage_url()).dontAnimate().placeholder(R.mipmap.icon_water).into(bindingView.elementDetailImg);
+        }else {
+            bindingView.elementDetailImg.setImageResource(R.mipmap.icon_air);
+        }
         bindingView.elementDetailTvStandard.setText(airYear.getAir_year_standard()+"微克／立方米");
         bindingView.elementDetailTvValue.setText(airYear.getAir_year_value()+"微克／立方米");
         bindingView.elementDetailTvTime.setText(airYear.getUpdatedAt());

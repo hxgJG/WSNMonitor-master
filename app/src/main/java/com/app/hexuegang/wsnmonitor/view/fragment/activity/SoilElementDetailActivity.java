@@ -8,8 +8,9 @@ import android.view.View;
 
 import com.app.hexuegang.wsnmonitor.BaseActivity;
 import com.app.hexuegang.wsnmonitor.R;
-import com.app.hexuegang.wsnmonitor.bean.parameter_soil;
+import com.app.hexuegang.wsnmonitor.bean.ParameterSoil;
 import com.app.hexuegang.wsnmonitor.databinding.ActivitySoilElementDetailBinding;
+import com.bumptech.glide.Glide;
 
 /**
  * Created by HEXG on 2017/4/9.
@@ -17,7 +18,7 @@ import com.app.hexuegang.wsnmonitor.databinding.ActivitySoilElementDetailBinding
 
 public class SoilElementDetailActivity extends BaseActivity<ActivitySoilElementDetailBinding> implements View.OnClickListener {
 
-    private parameter_soil parameterSoil;
+    private ParameterSoil parameterSoil;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class SoilElementDetailActivity extends BaseActivity<ActivitySoilElementD
         setContentView(R.layout.activity_soil_element_detail);
 
         Intent intent = getIntent();
-        parameterSoil = (parameter_soil) intent.getSerializableExtra("soil_element");
+        parameterSoil = (ParameterSoil) intent.getSerializableExtra("soil_element");
         if (parameterSoil == null) return;
         initUI();
     }
@@ -35,7 +36,11 @@ public class SoilElementDetailActivity extends BaseActivity<ActivitySoilElementD
         setToolBarTitle(parameterSoil.getElement_name());
         setNavigationIcon(R.mipmap.toolbar_back);
         setNavigationIconClick(SoilElementDetailActivity.this, true);
-        bindingView.elementDetailTvName.setText(parameterSoil.getElement_name());
+        if (parameterSoil.getImage_url()  != null){
+            Glide.with(SoilElementDetailActivity.this).load(parameterSoil.getImage_url()).dontAnimate().placeholder(R.mipmap.icon_water).into(bindingView.elementDetailImg);
+        }else {
+            bindingView.elementDetailImg.setImageResource(R.mipmap.icon_water);
+        }
         bindingView.elementDetailTvBg.setText(parameterSoil.getSoil_value_bg()+"mg／kg");
         bindingView.elementDetailTvStandard.setText(parameterSoil.getSoil_standard()+"mg／kg");
         bindingView.elementDetailTvValue.setText(parameterSoil.getSoil_value()+"mg／kg");

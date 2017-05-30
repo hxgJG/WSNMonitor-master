@@ -8,8 +8,9 @@ import android.view.View;
 
 import com.app.hexuegang.wsnmonitor.BaseActivity;
 import com.app.hexuegang.wsnmonitor.R;
-import com.app.hexuegang.wsnmonitor.bean.parameter_water;
+import com.app.hexuegang.wsnmonitor.bean.ParameterWater;
 import com.app.hexuegang.wsnmonitor.databinding.ActivityWaterElementDetailBinding;
+import com.bumptech.glide.Glide;
 
 /**
  * Created by HEXG on 2017/4/9.
@@ -17,7 +18,7 @@ import com.app.hexuegang.wsnmonitor.databinding.ActivityWaterElementDetailBindin
 
 public class WaterElementDetailActivity extends BaseActivity<ActivityWaterElementDetailBinding> implements View.OnClickListener {
 
-    private parameter_water waterElement;
+    private ParameterWater waterElement;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class WaterElementDetailActivity extends BaseActivity<ActivityWaterElemen
         setContentView(R.layout.activity_water_element_detail);
 
         Intent intent = getIntent();
-        waterElement = (parameter_water) intent.getSerializableExtra("water_element");
+        waterElement = (ParameterWater) intent.getSerializableExtra("water_element");
         if (waterElement == null) return;
         initUI();
     }
@@ -35,7 +36,13 @@ public class WaterElementDetailActivity extends BaseActivity<ActivityWaterElemen
         setToolBarTitle(waterElement.getName());
         setNavigationIcon(R.mipmap.toolbar_back);
         setNavigationIconClick(WaterElementDetailActivity.this, true);
-        bindingView.elementDetailTvName.setText(waterElement.getName());
+
+        if (waterElement.getImage_url()  != null){
+            Glide.with(WaterElementDetailActivity.this).load(waterElement.getImage_url()).dontAnimate().placeholder(R.mipmap.icon_water).into(bindingView.elementDetailImg);
+        }else {
+            bindingView.elementDetailImg.setImageResource(R.mipmap.icon_water);
+        }
+
         bindingView.elementDetailTvStandard.setText(waterElement.getElement_standard_1()+"mg／L");
         bindingView.elementDetailTvValue.setText(waterElement.getElement_value()+"mg／L");
         bindingView.elementDetailTvTime.setText(waterElement.getUpdatedAt());

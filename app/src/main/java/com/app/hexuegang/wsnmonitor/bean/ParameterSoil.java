@@ -8,12 +8,14 @@ import cn.bmob.v3.BmobObject;
  * Created by HEXG on 2017/4/9.
  */
 
-public class parameter_soil extends BmobObject implements Serializable{
+public class ParameterSoil extends BmobObject implements Serializable{
     private String soil_name;
     private String element_name;
     private float soil_value_bg;
     private float soil_value;
     private float soil_standard;
+    private String image_url;
+    private int groupId;
 
     public String getSoil_name() {
         return soil_name;
@@ -53,5 +55,21 @@ public class parameter_soil extends BmobObject implements Serializable{
 
     public void setSoil_standard(float soil_standard) {
         this.soil_standard = soil_standard;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 }

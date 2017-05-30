@@ -8,17 +8,17 @@ import cn.bmob.v3.BmobObject;
  * Created by HEXG on 2017/4/9.
  */
 
-public class parameter_water extends BmobObject implements Serializable{
+public class ParameterWater extends BmobObject implements Serializable{
     private String element_name;
     private String name;
-    private String image_url;
     private float element_value;
     private float element_standard_1;
+    private String image_url;
     private int groupId;
 //    private int type = (int) (Math.random()*100);
 
 
-    public parameter_water() {
+    public ParameterWater() {
     }
 
     public String getElement_name() {

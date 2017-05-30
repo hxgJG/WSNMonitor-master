@@ -12,7 +12,7 @@ import com.app.hexuegang.wsnmonitor.view.fragment.AirIndexFragment;
 import com.app.hexuegang.wsnmonitor.view.fragment.ComprehensiveFragment;
 import com.app.hexuegang.wsnmonitor.view.fragment.NoiseIndexFragment;
 import com.app.hexuegang.wsnmonitor.view.fragment.SoilIndexFragment;
-import com.app.hexuegang.wsnmonitor.view.fragment.WaterIndexFragment2;
+import com.app.hexuegang.wsnmonitor.view.fragment.WaterIndexFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
 
     private void initUI() {
         List<Fragment> list = new ArrayList<>();
-        list.add(getFragment(new WaterIndexFragment2(), 0));
+        list.add(getFragment(new WaterIndexFragment(), 0));
         list.add(getFragment(new AirIndexFragment(), 0));
         list.add(getFragment(new SoilIndexFragment(), 0));
         list.add(getFragment(new NoiseIndexFragment(), 0));

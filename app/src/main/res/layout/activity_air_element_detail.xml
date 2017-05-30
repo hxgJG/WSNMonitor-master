@@ -14,13 +14,12 @@
             android:padding="15dp"
             tools:context="com.app.hexuegang.wsnmonitor.view.fragment.activity.AirElementDetailActivity">
 
-            <TextView
-                android:id="@+id/element_detail_tv_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:textSize="22sp" />
+            <ImageView
+                android:id="@+id/element_detail__img"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp" />
 
 
             <TextView
